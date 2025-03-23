@@ -9,6 +9,8 @@ import { revalidatePath } from "next/cache";
 import { Icon } from "@iconify/react";
 import { Button } from "../../../components/ui/button";
 import { toast } from "react-toastify";
+import Link from "next/link";
+import { DropdownMenuDemo } from "../../../components/Nav/DropdownMenuDemo";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -111,10 +113,17 @@ const PostPage = async ({ params }: Props) => {
     },
   });
 
-  
-
   return (
     <div className="w-full min-h-screen text-foreground p-6 font-sans bg-[url('/Home_1.png')] bg-cover bg-center bg-no-repeat">
+      <div className="flex justify-between items-center">
+        <Link href="/" className="text-2xl font-bold text-amber-600">
+          Foodie Rate
+        </Link>
+        <div className="flex items-center gap-2">
+          <span className="text-muted-foreground">{session?.user.name}</span>
+          <DropdownMenuDemo />
+        </div>
+      </div>
       <div className="max-w-4xl mx-auto">
         <div className="bg-card p-6 rounded-lg shadow-md mb-6">
           <h1 className="text-4xl font-bold text-primary">
@@ -131,9 +140,12 @@ const PostPage = async ({ params }: Props) => {
             <span className="text-sm text-muted-foreground">
               ({post.rating}/5)
             </span>
-            <p className="text-sm text-muted-foreground">
+            <Link
+              href={`/user/${post.user.id}`}
+              className="text-sm text-muted-foreground"
+            >
               โดย: <span className="font-medium">{post.user.name}</span>
-            </p>
+            </Link>
           </div>
           <p className="text-sm text-muted-foreground mt-2">
             โพสต์เมื่อ:
