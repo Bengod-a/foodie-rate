@@ -10,8 +10,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  reactStrictMode: false,
-  distDir: "build",
+  // reactStrictMode: false,
+  // distDir: "build",
 };
 
 export default nextConfig;
