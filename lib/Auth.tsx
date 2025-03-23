@@ -2,7 +2,7 @@ import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import GoogleProvider from "next-auth/providers/google";
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "./DB/prisma";
 
 export const authOptions: AuthOptions = {
@@ -51,6 +51,7 @@ export const authOptions: AuthOptions = {
             email: user.email,
             name: user.name,
             image: user.image,
+            posts: user.posts,
           };
         } catch (error: any) {
           console.error("Auth error:", error);
@@ -67,19 +68,40 @@ export const authOptions: AuthOptions = {
         token.email = user.email;
         token.name = user.name;
         token.image = user.image;
+        token.posts = user.posts;
       }
       return token;
     },
     async session({ session, token }: any) {
-      const user: any = await prisma.user.findUnique({
+      const user = await prisma.user.findUnique({
         where: { id: token.id },
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          image: true,
+          posts: {
+            select: {
+              id: true,
+              restaurantName: true,
+              images: true,
+              foodname: true,
+              rating: true,
+              description: true,
+              user:true,
+              likes: true,
+              comments: true
+            },
+          },
+        },
       });
 
-      if (session.user) {
+      if (session.user && user) {
         session.user.id = user.id;
         session.user.email = user.email;
         session.user.name = user.name;
         session.user.image = user.image;
+        session.user.posts = user.posts;
       }
       return session;
     },
