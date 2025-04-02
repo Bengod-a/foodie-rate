@@ -159,7 +159,7 @@ const Post = ({ search }: PostProps) => {
                   </p>
                   <div className="mt-2 flex gap-4">
                     <button className="text-muted-foreground hover:text-primary  hover:scale-110 transition-transform duration-200 ease-in-out">
-                      👍{" "}
+                      👍
                       <span className="text-primary">
                         {review.likes?.length ?? 0}
                       </span>

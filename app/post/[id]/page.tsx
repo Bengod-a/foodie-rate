@@ -241,11 +241,31 @@ const PostPage = async ({ params }: Props) => {
                     <p className="text-sm font-medium">{comment.user.name}</p>
                   </div>
                   <p className="text-foreground">{comment.text}</p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {format(new Date(comment.createdAt), "d MMMM yyyy", {
-                      locale: th,
-                    })}
-                  </p>
+                  <div className="flex">
+                    <div className="text-xs text-muted-foreground mt-1">
+                      {format(new Date(comment.createdAt), "d MMMM yyyy", {
+                        locale: th,
+                      })}
+                      <div className="flex items-center text-[15px] gap-2 text-muted-foreground cursor-pointer ">
+                        <Icon
+                          icon="line-md:heart-filled"
+                          width="24"
+                          height="24"
+                          className="hover:text-primary  hover:scale-110 transition-transform duration-200 ease-in-out"
+                        />
+                        <span className="text-primary">
+                          {/* {comment.likes?.length ?? 0} */} 1
+                        </span>
+                        <button className="text-foreground pl-2  cursor-pointer ">
+                          ตอบกลับ
+                        </button>
+                      </div>
+                      <div className="mt-2 flex items-center gap-2">
+                         <div className="h-[1px] bg-gray-500 w-10"></div>
+                         <h1 className="flex gap-1 items-center">ดูการตอบกลับ 8 รายการ <Icon icon="iconamoon:arrow-down-2-thin" width="24" height="24" /> </h1>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
